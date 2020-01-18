@@ -6,8 +6,8 @@
       <class name="com.ProjectOne.ProjectOne.OneTest">
         <methods>
           <include name="TearUp"/>
-          <include name="TestCase1"/>
           <include name="Setup"/>
+          <include name="GoogleSearch"/>
         </methods>
       </class> <!-- com.ProjectOne.ProjectOne.OneTest -->
     </classes>

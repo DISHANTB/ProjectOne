@@ -16,7 +16,7 @@ public class OneTest {
 	//webDriver Object declaration
 	WebDriver driver = null;
 	
-	@BeforeTest
+	@BeforeMethod
 	public void Setup(){
 		driver = BrowserFactory.getDriver("chrome");
 		ExcelFactory.getWorkbook("TestData");
@@ -24,25 +24,28 @@ public class OneTest {
 	
 	
 	@Test
-	public void TestCase1() throws InterruptedException {
+	public void GoogleSearch() throws InterruptedException {
 		
 		ExcelFactory.getTestDataLoaded("Sheet1", "TC_01");
 		BrowserFactory.loadApplication();
 		
 
 		WebElement element = driver.findElement(By.name("q"));
+		WebElement settingLink = driver.findElement(By.id("abar_button_opt"));
+		WebElement searchHelp = driver.findElement(By.linkText("Search help"));
 		try {
 			element.sendKeys(ExcelFactory.getValueOf("Search_text"));
 			element.sendKeys(Keys.ENTER);
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-			
+			settingLink.click();
+			searchHelp.click();
 		} catch (Exception e) {
 				e.printStackTrace();
 		}
 		
 	}
 	
-	@AfterTest
+	@AfterMethod
 	public void TearUp(){
 		BrowserFactory.closeDriver(driver);
 	}
