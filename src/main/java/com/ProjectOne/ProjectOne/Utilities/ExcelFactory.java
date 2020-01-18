@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.*;
 
 import org.apache.poi.xssf.usermodel.*;
+import org.junit.Assert;
 
 public class ExcelFactory {
 	//Excel file objects
@@ -20,7 +21,7 @@ public class ExcelFactory {
 				workBook = new XSSFWorkbook(new FileInputStream(excelfile));
 			} catch (Exception e) {
 				//Need to log the error message
-				System.out.println("Excel Data file is not available at the mentioned location.");
+				Assert.assertTrue("Excel Data file is not available at the mentioned location.", false);
 				e.printStackTrace();
 			}
 		}	
@@ -28,6 +29,7 @@ public class ExcelFactory {
 	
 	public static void getSheet(String sheetName) throws Exception{
 		if(workBook ==  null){
+			Assert.assertTrue("Workbook is not available at the provided location", false);
 			throw new Exception("Workbook is not available at the provided location");
 		}else{
 			if (workBook.getNumberOfSheets() != 0) {
@@ -44,13 +46,14 @@ public class ExcelFactory {
 	public static String getCellValue(int row, int col) throws Exception{
 		String cellValue = null;
 		if(workSheet == null){
+			Assert.assertTrue("Sheet is not available in the provided WorkBook", false);
 			throw new Exception("Sheet is not available in the provided WorkBook");
 		}else{
 			try{
 				XSSFRow rowNumber = workSheet.getRow(row);
 				cellValue = rowNumber.getCell(col).toString();
 			}catch(Exception e){
-				System.out.println("Requested Cell number may have some issue. Please check provided row and column count");
+				Assert.assertTrue("Requested Cell number may have some issue. Please check provided row and column count", false);
 				e.printStackTrace();
 			}			
 		}
@@ -74,11 +77,11 @@ public class ExcelFactory {
 					TestDataMap.put(getCellValue(0,col), getCellValue(DataRow,col));
 				}
 			}else{
-				System.out.println("No Test data available for the provided test identifier");
+				Assert.assertTrue("No Test data available for the provided test identifier", false);
 				throw new Exception();
 			}			
 		}catch(Exception e){
-			System.out.println("Facing some error while loading test data for the test script.");
+			Assert.assertTrue("Facing some error while loading test data for the test script.", false);
 			e.printStackTrace();
 		}
 		
@@ -89,6 +92,7 @@ public class ExcelFactory {
 		if(TestDataMap.containsKey(keyValue)){
 			value = TestDataMap.get(keyValue);
 		}else{
+			Assert.assertFalse("Column is not present for the selected sheet.", false);
 			throw new Exception("Column is not present for the selected sheet.");
 		}
 		return value;
