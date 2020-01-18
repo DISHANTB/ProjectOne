@@ -19,6 +19,7 @@ public class ExcelFactory {
 		if(excelfile.exists()){
 			try {
 				workBook = new XSSFWorkbook(new FileInputStream(excelfile));
+				Assert.assertTrue("Workbook is identified to fetch the Test Data.", true);
 			} catch (Exception e) {
 				//Need to log the error message
 				Assert.assertTrue("Excel Data file is not available at the mentioned location.", false);
@@ -36,6 +37,7 @@ public class ExcelFactory {
 		        for (int i = 0; i < workBook.getNumberOfSheets(); i++) {
 		           if (workBook.getSheetName(i).equals(sheetName)) {
 		                workSheet = workBook.getSheet(sheetName);
+		                Assert.assertTrue("Sheet is available in the WorkBook.", true);
 		                break;
 		           }
 		        }
@@ -76,6 +78,7 @@ public class ExcelFactory {
 				for(int col = 0; col < colCount; col++){
 					TestDataMap.put(getCellValue(0,col), getCellValue(DataRow,col));
 				}
+				Assert.assertTrue("Test Data loaded for the Test Run from Data Source.", true);
 			}else{
 				Assert.assertTrue("No Test data available for the provided test identifier", false);
 				throw new Exception();

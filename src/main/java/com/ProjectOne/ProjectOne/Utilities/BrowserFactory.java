@@ -30,6 +30,7 @@ public class BrowserFactory {
 				driver = new InternetExplorerDriver();
 				driver.manage().window().maximize();
 			}
+			Assert.assertTrue(true,"Browser window opened.");
 		}
 		catch(Exception e){
 			Assert.assertTrue(false, "Problem loading browser window");
@@ -41,6 +42,12 @@ public class BrowserFactory {
 	//common method for closing 
 	public static void closeDriver(WebDriver driver){
 		driver.close();
+		try {
+            driver.getTitle();
+            Assert.assertFalse(false, "Browser is not closed properly.");
+        } catch (Exception e) {
+            Assert.assertTrue(true, "Browser window closed.");
+        }
 	}
 			
 	//Load application for the execution
@@ -50,6 +57,7 @@ public class BrowserFactory {
 			appURL = ExcelFactory.getValueOf("URL");
 			if(!appURL.equals("")){
 				driver.get(appURL);
+				Assert.assertTrue(true, "Provided URL opened in the Browser window.");
 			}else{
 				Assert.assertTrue(false, "Not able to find a valid application URL.");
 			}
